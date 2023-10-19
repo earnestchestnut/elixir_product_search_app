@@ -17,7 +17,20 @@ defmodule ProductSearchAppWeb.Router do
   scope "/", ProductSearchAppWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    #get "/", PageController, :home
+    live_session :default, layout: {ProductSearchAppWeb.Layouts, :productsearch} do
+      live "/", CatalogLive, :index
+      live "/search", CatalogLive, :index
+    end
+  end
+
+    scope "/gql" do
+    pipe_through :api
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: ProductSearchAppWeb.Schema,
+      interface: :simple,
+      context: %{pubsub: ProductSearchAppWeb.Endpoint}
   end
 
   # Other scopes may use custom stacks.

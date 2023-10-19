@@ -4,7 +4,7 @@ defmodule ProductSearchAppWeb.Schema do
   alias ProductSearchAppWeb.CatalogResolver
 
   object :product do
-    field :_id, non_null(:string)
+    field :id, :integer
     field :is_active, non_null(:string)
     field :price, non_null(:string)
     field :picture, non_null(:string)
